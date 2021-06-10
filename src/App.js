@@ -1,24 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
+import Card from './Components/UI/Card';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload. NO.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Card className="grid grid-cols-1 text-center">
+      <h2 className="text-2xl text-center mb-4">GrapeCity Poll System</h2>
+      <button className="btn-primary">Click Me</button>
+    </Card>
   );
 }
 
