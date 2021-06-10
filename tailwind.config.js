@@ -18,6 +18,9 @@ module.exports = {
       pink: colors.pink,
       white: white
     },
+    fontFamily: {
+      'main' : ["Montserrat", "Open Sans", "Segoe UI", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+    },
     extend: {},
   },
   variants: {
