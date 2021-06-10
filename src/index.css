@@ -2,26 +2,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @layer base {
-  body{
+  body {
     margin: 0;
-    @apply bg-purple-50 font-main;
+    @apply bg-purple-50 font-main text-gray-800;
+  }
+  h1 {
+    @apply text-4xl font-extrabold;
+  }
+  h2 {
+    @apply text-3xl font-extrabold;
+  }
+  h3 {
+    @apply text-2xl font-extrabold;
   }
 }
 
 @layer components {
-    .btn-primary {
-      @apply py-2 px-4 bg-purple-900 rounded-md text-gray-50 hover:text-purple-900 hover:bg-white border-2 border-primary-900 transition duration-300 ease-in-out text-xl font-medium focus:outline-none;
-    }
-    .btn-alt {
-      @apply py-2 px-4 bg-white rounded-md text-primary-900 hover:text-white hover:bg-primary-900 border-2 border-white transition duration-300 ease-in-out text-xl font-medium focus:outline-none;
-    }
-    .card-white {
-      @apply bg-white w-full shadow-lg rounded-md m-4 p-4;
-    }
-    .card-alt {
-      @apply bg-purple-900 w-full shadow-lg rounded-md m-4 p-4 text-white;
-    }
+  .btn-primary {
+    @apply py-2 px-4 bg-purple-900 rounded-md text-gray-50 hover:text-purple-900 hover:bg-white border-2 border-primary-900 transition duration-300 ease-in-out text-xl font-medium focus:outline-none;
   }
+  .btn-alt {
+    @apply py-2 px-4 bg-white rounded-md text-primary-900 hover:text-white hover:bg-primary-900 border-2 border-white transition duration-300 ease-in-out text-xl font-medium focus:outline-none;
+  }
+  .card-white {
+    @apply bg-white w-full shadow-lg rounded-md p-4;
+  }
+  .card-alt {
+    @apply bg-purple-900 w-full shadow-lg rounded-md p-4 text-white;
+  }
+}
