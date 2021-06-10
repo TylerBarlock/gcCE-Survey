@@ -1,4 +1,5 @@
 const { createPortal } = require('react-dom')
+const { white } = require('tailwindcss/colors')
 const colors = require('tailwindcss/colors')
 
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
       blue: colors.blue,
       purple: colors.purple,
       pink: colors.pink,
+      white: white
     },
     extend: {},
   },
