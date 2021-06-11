@@ -25,7 +25,10 @@
     @apply py-2 px-4 bg-purple-900 rounded-md text-gray-50 hover:text-purple-900 hover:bg-white border-2 border-primary-900 transition duration-300 ease-in-out text-xl font-medium focus:outline-none;
   }
   .btn-alt {
-    @apply py-2 px-4 bg-white rounded-md text-primary-900 hover:text-white hover:bg-primary-900 border-2 border-white transition duration-300 ease-in-out text-xl font-medium focus:outline-none;
+    @apply py-2 px-4 bg-white rounded-md text-primary-900 hover:text-white hover:bg-primary-900 border-2 border-primary-900 hover:border-white transition duration-300 ease-in-out text-xl font-medium focus:outline-none;
+  }
+  .btn-alt-onwhite {
+    @apply py-2 px-4 bg-white rounded-md text-primary-900 hover:text-white hover:bg-primary-900 border-2 border-primary-900 transition duration-300 ease-in-out text-xl font-medium focus:outline-none;
   }
   .card-white {
     @apply bg-white w-full shadow-lg rounded-md p-4;
