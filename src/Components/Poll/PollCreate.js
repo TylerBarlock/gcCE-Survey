@@ -18,10 +18,26 @@ const PollCreate = () => {
         <div className="text-left">
           <div className="grid grid-cols-1 mb-4 formtext">
             <h4 className="mb-2">Answer Options</h4>
-            <input type="text" className="mb-3 formtext" placeholder="Add an answer..."></input>
-            <input type="text" className="mb-3" placeholder="Add an answer..."></input>
-            <input type="text" className="mb-3" placeholder="Add an answer..."></input>
-            <input type="text" className="mb-3" placeholder="Add an answer..."></input>
+            <input
+              type="text"
+              className="mb-3 formtext"
+              placeholder="Add an answer..."
+            ></input>
+            <input
+              type="text"
+              className="mb-3"
+              placeholder="Add an answer..."
+            ></input>
+            <input
+              type="text"
+              className="mb-3"
+              placeholder="Add an answer..."
+            ></input>
+            <input
+              type="text"
+              className="mb-3"
+              placeholder="Add an answer..."
+            ></input>
           </div>
         </div>
         <div className="text-left">
@@ -42,11 +58,9 @@ const PollCreate = () => {
           </div>
         </div>
         <button type="submit" className="btn-primary mx-2">
-            Create Poll
-          </button>
-          <button className="btn-alt-onwhite mx-2">
-            Advanced Settings
-          </button>
+          Create Poll
+        </button>
+        <button className="btn-alt-onwhite mx-2">Advanced Settings</button>
       </form>
     </div>
   );
