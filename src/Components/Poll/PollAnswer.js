@@ -2,22 +2,27 @@ import React, { useState } from "react";
 import PollAnswerOption from "./PollAnswerOption";
 
 const PollAnswer = () => {
+  //Dummy data for answer options
   const answerOptions = [
     {
+      id: 1,
       text: "This one?",
     },
     {
+      id: 2,
       text: "Maybe this one.",
     },
     {
+      id: 3,
       text: "Or... Maybe this one?",
     },
     {
+      id: 4,
       text: "Hmmm... How about this?",
     },
   ];
 
-  const [checkedAnswer, setCheckedAnswer] = useState("Maybe this one.");
+  const [checkedAnswer, setCheckedAnswer] = useState("");
 
   const submitAnswersHandler = (event) => {
     //stop the form from reloading (default behavior)
@@ -41,26 +46,16 @@ const PollAnswer = () => {
       </p>
       <form onSubmit={submitAnswersHandler}>
         <div className="mb-4">
-          <PollAnswerOption
-            text={answerOptions[0].text}
-            isChecked={checkedAnswer === answerOptions[0].text}
-            onAnswerChanged={answerChangeHandler}
-          />
-          <PollAnswerOption
-            text={answerOptions[1].text}
-            isChecked={checkedAnswer === answerOptions[1].text}
-            onAnswerChanged={answerChangeHandler}
-          />
-          <PollAnswerOption
-            text={answerOptions[2].text}
-            isChecked={checkedAnswer === answerOptions[2].text}
-            onAnswerChanged={answerChangeHandler}
-          />
-          <PollAnswerOption
-            text={answerOptions[3].text}
-            isChecked={checkedAnswer === answerOptions[3].text}
-            onAnswerChanged={answerChangeHandler}
-          />
+          {/*Display a PollAnswerOption component for each answerOption*/}
+          {answerOptions.map((option) => (
+            <PollAnswerOption
+              key={option.id}
+              id={option.id}
+              text={option.text}
+              isChecked={checkedAnswer === option.id.toString()}
+              onAnswerChanged={answerChangeHandler}
+            />
+          ))}
         </div>
         <button type="submit" className="btn-primary mx-2">
           Vote

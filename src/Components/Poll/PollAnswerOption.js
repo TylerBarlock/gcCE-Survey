@@ -10,7 +10,7 @@ const PollAnswerOption = (props) => {
       <input
         type="radio"
         name="poll"
-        value={props.text}
+        value={props.id}
         className="mx-4"
         checked={props.isChecked}
         onChange={radioSelectedHandler}
