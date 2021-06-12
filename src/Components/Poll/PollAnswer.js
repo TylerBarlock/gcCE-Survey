@@ -1,26 +1,43 @@
+//Main component for answering a poll
+
 import React, { useState } from "react";
 import PollAnswerOption from "./PollAnswerOption";
 
 const PollAnswer = () => {
   //Dummy data for answer options
-  const answerOptions = [
+
+  const pollData = 
     {
-      id: 1,
-      text: "This one?",
-    },
-    {
-      id: 2,
-      text: "Maybe this one.",
-    },
-    {
-      id: 3,
-      text: "Or... Maybe this one?",
-    },
-    {
-      id: 4,
-      text: "Hmmm... How about this?",
-    },
-  ];
+      title: "This is a poll.",
+      description: "this is some very interesting information about this super cool and unique poll that we'd like you to fill out.",
+      answerOptions: [
+        {
+          id: 1,
+          text: "This one?",
+        },
+        {
+          id: 2,
+          text: "Maybe this one.",
+        },
+        {
+          id: 3,
+          text: "Or... Maybe this one?",
+        },
+        {
+          id: 4,
+          text: "Hmmm... How about this?",
+        },
+      ],
+      options: 
+      {
+        private: false,
+        multiple: false,
+        login: false,
+        ipcheck: false,
+      }
+    };
+
+  console.log(pollData.answerOptions[0].text);
 
   const [checkedAnswer, setCheckedAnswer] = useState("");
 
@@ -39,20 +56,19 @@ const PollAnswer = () => {
 
   return (
     <div>
-      <h2 className="mb-4 text-center">This is a test</h2>
+      <h2 className="mb-4 text-center">{pollData.title}</h2>
       <p className="mb-4 text-center">
-        Hello, this is some text to fill up this space. Blah blah blah blah.
-        Something cool, something neat, something rad.
+        {pollData.description}
       </p>
       <form onSubmit={submitAnswersHandler}>
         <div className="mb-4">
           {/*Display a PollAnswerOption component for each answerOption*/}
-          {answerOptions.map((option) => (
+          {pollData.answerOptions.map((option) => (
             <PollAnswerOption
               key={option.id}
               id={option.id}
               text={option.text}
-              isChecked={checkedAnswer === option.id.toString()}
+              isChecked={Number(checkedAnswer) === option.id}
               onAnswerChanged={answerChangeHandler}
             />
           ))}

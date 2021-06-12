@@ -1,3 +1,5 @@
+//Component for individual answer option items (radio buttons/checkboxes)
+
 import React, { useState } from "react";
 
 const PollAnswerOption = (props) => {
