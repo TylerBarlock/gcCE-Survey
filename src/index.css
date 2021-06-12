@@ -18,6 +18,15 @@
   h3 {
     @apply text-2xl font-extrabold;
   }
+  h4 {
+    @apply text-xl font-extrabold;
+  }
+  input[type=text] {
+    @apply transition rounded-md focus:bg-primary-50 border-2 border-primary-300 outline-none focus:shadow-inner p-1;
+  }
+  input[type=checkbox] {
+    @apply border-primary-300 bg-primary-50;
+  }
 }
 
 @layer components {
@@ -26,6 +35,9 @@
   }
   .btn-alt {
     @apply py-2 px-4 bg-white rounded-md text-primary-900 hover:text-white hover:bg-primary-900 border-2 border-white transition duration-300 ease-in-out text-xl font-medium focus:outline-none;
+  }
+  .btn-alt-onwhite {
+    @apply py-2 px-4 bg-white rounded-md text-primary-900 hover:text-white hover:bg-primary-900 border-2 border-primary-900 transition duration-300 ease-in-out text-xl font-medium focus:outline-none;
   }
   .card-white {
     @apply bg-white w-full shadow-lg rounded-md p-4;
