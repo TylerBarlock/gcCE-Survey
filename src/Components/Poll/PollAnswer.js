@@ -5,39 +5,35 @@ import PollAnswerOption from "./PollAnswerOption";
 
 const PollAnswer = () => {
   //Dummy data for answer options
-
-  const pollData = 
-    {
-      title: "This is a poll.",
-      description: "this is some very interesting information about this super cool and unique poll that we'd like you to fill out.",
-      answerOptions: [
-        {
-          id: 1,
-          text: "This one?",
-        },
-        {
-          id: 2,
-          text: "Maybe this one.",
-        },
-        {
-          id: 3,
-          text: "Or... Maybe this one?",
-        },
-        {
-          id: 4,
-          text: "Hmmm... How about this?",
-        },
-      ],
-      options: 
+  const pollData = {
+    title: "This is a poll.",
+    description:
+      "this is some very interesting information about this super cool and unique poll that we'd like you to fill out.",
+    answerOptions: [
       {
-        private: false,
-        multiple: false,
-        login: false,
-        ipcheck: false,
-      }
-    };
-
-  console.log(pollData.answerOptions[0].text);
+        id: 0,
+        text: "This one?",
+      },
+      {
+        id: 1,
+        text: "Maybe this one.",
+      },
+      {
+        id: 2,
+        text: "Or... Maybe this one?",
+      },
+      {
+        id: 3,
+        text: "Hmmm... How about this?",
+      },
+    ],
+    options: {
+      private: false,
+      multiple: false,
+      login: false,
+      ipcheck: false,
+    },
+  };
 
   const [checkedAnswer, setCheckedAnswer] = useState("");
 
@@ -57,9 +53,7 @@ const PollAnswer = () => {
   return (
     <div>
       <h2 className="mb-4 text-center">{pollData.title}</h2>
-      <p className="mb-4 text-center">
-        {pollData.description}
-      </p>
+      <p className="mb-4 text-center">{pollData.description}</p>
       <form onSubmit={submitAnswersHandler}>
         <div className="mb-4">
           {/*Display a PollAnswerOption component for each answerOption*/}
