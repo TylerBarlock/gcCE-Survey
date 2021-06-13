@@ -3,7 +3,9 @@ import PollAnswer from "./PollAnswer";
 import PollCreate from "./PollCreate";
 
 const Poll = () => {
-  const saveNewPollHandler = () => {};
+  const saveNewPollHandler = () => {
+    
+  };
 
   const [createStatus, setCreateStatus] = useState(false);
   const [answerStatus, setAnswerStatus] = useState(false);
@@ -50,10 +52,6 @@ const Poll = () => {
           <PollAnswer />
         </div>
       )}
-      {/* <div className="card-white col-span-2 w-1/2 text-center">
-        <PollAnswer />
-        <PollCreate onSaveNewPoll={saveNewPollHandler} />
-      </div> */}
     </div>
   );
 };

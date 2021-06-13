@@ -7,10 +7,20 @@ const PollAnswerOption = (props) => {
     props.onAnswerChanged(event.target.value);
   };
 
+  let inputType;
+
+  //Setting to checkboxes works, but they still can only select one and it only reports one value
+  if (props.isMultiple === true) {
+    inputType = "checkbox";
+  } else {
+    inputType = "radio";
+  }
+
+
   return (
     <div className="flex items-center">
       <input
-        type="radio"
+        type={inputType}
         name="poll"
         value={props.id}
         className="mx-4"

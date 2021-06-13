@@ -62,6 +62,7 @@ const PollAnswer = () => {
               key={option.id}
               id={option.id}
               text={option.text}
+              isMultiple={pollData.options.multiple}
               isChecked={Number(checkedAnswer) === option.id}
               onAnswerChanged={answerChangeHandler}
             />
