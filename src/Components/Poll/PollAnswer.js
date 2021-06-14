@@ -3,37 +3,7 @@
 import React, { useState } from "react";
 import PollAnswerOption from "./PollAnswerOption";
 
-const PollAnswer = () => {
-  //Dummy data for answer options
-  const pollData = {
-    title: "This is a poll.",
-    description:
-      "this is some very interesting information about this super cool and unique poll that we'd like you to fill out.",
-    answerOptions: [
-      {
-        id: 0,
-        text: "This one?",
-      },
-      {
-        id: 1,
-        text: "Maybe this one.",
-      },
-      {
-        id: 2,
-        text: "Or... Maybe this one?",
-      },
-      {
-        id: 3,
-        text: "Hmmm... How about this?",
-      },
-    ],
-    options: {
-      private: false,
-      multiple: false,
-      login: false,
-      ipcheck: false,
-    },
-  };
+const PollAnswer = (props) => {
 
   const [checkedAnswer, setCheckedAnswer] = useState("");
 
@@ -52,17 +22,17 @@ const PollAnswer = () => {
 
   return (
     <React.Fragment>
-      <h2 className="mb-4 text-center">{pollData.title}</h2>
-      <p className="mb-4 text-center">{pollData.description}</p>
+      <h2 className="mb-4 text-center">{props.pollData.title}</h2>
+      <p className="mb-4 text-center">{props.pollData.description}</p>
       <form onSubmit={submitAnswersHandler}>
         <div className="mb-4">
           {/*Display a PollAnswerOption component for each answerOption*/}
-          {pollData.answerOptions.map((option) => (
+          {props.pollData.answerOptions.map((option) => (
             <PollAnswerOption
               key={option.id}
               id={option.id}
               text={option.text}
-              isMultiple={pollData.options.multiple}
+              isMultiple={props.pollData.options.multiple}
               isChecked={Number(checkedAnswer) === option.id}
               onAnswerChanged={answerChangeHandler}
             />

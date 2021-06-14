@@ -1,6 +1,6 @@
 //Main component for poll creation
 
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import PollCreateAnswerOption from "./PollCreateAnswerOption";
 
 const PollCreate = (props) => {
@@ -64,6 +64,19 @@ const PollCreate = (props) => {
     };
     //send the new poll data up to the Poll component
     props.onSaveNewPoll(newPollData);
+  };
+
+  const renderPollAnswerOption = () => {
+
+
+
+    return (
+      <Fragment>
+        <PollCreateAnswerOption
+          onAnswerOptionChange={answerOptionChangeHandler}
+        />
+      </Fragment>
+    );
   };
 
   return (

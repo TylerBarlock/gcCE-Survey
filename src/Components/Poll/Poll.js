@@ -3,8 +3,41 @@ import PollAnswer from "./PollAnswer";
 import PollCreate from "./PollCreate";
 
 const Poll = () => {
-  const saveNewPollHandler = () => {
-    
+
+  //Dummy data for testing
+  let pollData = {
+    title: "This is a poll.",
+    description:
+      "this is some very interesting information about this super cool and unique poll that we'd like you to fill out.",
+    answerOptions: [
+      {
+        id: 0,
+        text: "This one?",
+      },
+      {
+        id: 1,
+        text: "Maybe this one.",
+      },
+      {
+        id: 2,
+        text: "Or... Maybe this one?",
+      },
+      {
+        id: 3,
+        text: "Hmmm... How about this?",
+      },
+    ],
+    options: {
+      private: false,
+      multiple: false,
+      login: false,
+      ipcheck: false,
+    },
+  };
+
+  const saveNewPollHandler = (newPollData) => {
+    pollData = newPollData;
+    console.log(pollData);
   };
 
   const [createStatus, setCreateStatus] = useState(false);
@@ -49,7 +82,7 @@ const Poll = () => {
       )}
       {answerStatus && (
         <div className="card-white col-span-2 w-1/2 text-center">
-          <PollAnswer />
+          <PollAnswer pollData={pollData}/>
         </div>
       )}
     </div>
