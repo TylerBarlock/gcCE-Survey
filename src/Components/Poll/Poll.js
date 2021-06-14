@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PollAnswer from "./PollAnswer";
 import PollCreate from "./PollCreate";
+import PollResults from "./PollResults";
 
 const Poll = () => {
 
@@ -34,6 +35,40 @@ const Poll = () => {
       ipcheck: false,
     },
   };
+
+  //Dummy data for testing poll results
+  let pollResponses = [
+    {
+      id: 1,
+      vote: [1],
+      ip: "56.170.138.93"
+    },
+    {
+      id: 2,
+      vote: [2],
+      ip: "66.48.231.142"
+    },
+    {
+      id: 3,
+      vote: [2],
+      ip: "100.193.215.142"
+    },
+    {
+      id: 4,
+      vote: [3],
+      ip: "235.184.145.207"
+    },
+    {
+      id: 5,
+      vote: [2],
+      ip: "235.184.145.207"
+    },
+    {
+      id: 6,
+      vote: [3],
+      ip: "235.184.145.207"
+    },
+  ]
 
   const saveNewPollHandler = (newPollData) => {
     pollData = newPollData;
@@ -82,9 +117,12 @@ const Poll = () => {
       )}
       {answerStatus && (
         <div className="card-white col-span-2 w-1/2 text-center">
-          <PollAnswer pollData={pollData}/>
+          <PollAnswer pollData={pollData} />
         </div>
       )}
+      <div className="card-white col-span-2 w-1/2 text-center">
+          <PollResults pollResponses={pollResponses} />
+        </div>
     </div>
   );
 };

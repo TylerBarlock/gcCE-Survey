@@ -1,11 +1,11 @@
 //Main component for poll creation
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useRef } from "react";
 import PollCreateAnswerOption from "./PollCreateAnswerOption";
 
 const PollCreate = (props) => {
-  const [enteredTitle, setEnteredTitle] = useState("");
-  const [enteredDescription, setEnteredDescription] = useState("");
+  // const [enteredTitle, setEnteredTitle] = useState("");
+  // const [enteredDescription, setEnteredDescription] = useState("");
   const [enteredAnswer, setEnteredAnswer] = useState("");
 
   const [selectedPrivate, setSelectedPrivate] = useState("");
@@ -13,16 +13,20 @@ const PollCreate = (props) => {
   const [selectedLogin, setSelectedLogin] = useState("");
   const [selectedIpcheck, setSelectedIpcheck] = useState("");
 
+  const enteredTitleRef = useRef();
+  const enteredDescriptionRef = useRef();
+  const enteredAnswerRef = useRef();
+
   const titleChangeHandler = (event) => {
-    setEnteredTitle(event.target.value);
+    //setEnteredTitle(event.target.value);
   };
 
   const descriptionChangeHandler = (event) => {
-    setEnteredDescription(event.target.value);
+    //setEnteredDescription(event.target.value);
   };
 
   const answerOptionChangeHandler = (answer) => {
-    setEnteredAnswer(answer);
+    //setEnteredAnswer(answer);
   };
 
   const privateSelectedHandler = (event) => {
@@ -41,9 +45,21 @@ const PollCreate = (props) => {
     setSelectedIpcheck(event.target.value);
   };
 
+  const addAnswerOptionHandler = (event) => {
+    console.log("add answer clicked");
+  };
+
+  const deleteAnswerOptionHandler = (event) => {
+    console.log("delete clicked");
+  };
+
   const onSubmitHandler = (event) => {
     //cancel default form submit behavior (reloads page)
     event.preventDefault();
+
+    const enteredTitle = enteredTitleRef.current.value;
+    const enteredDescription = enteredDescriptionRef.current.value;
+    //const enteredAnswer = enteredAnswerRef.current.value;
 
     //object to hold all data about the new poll being created
     const newPollData = {
@@ -64,19 +80,10 @@ const PollCreate = (props) => {
     };
     //send the new poll data up to the Poll component
     props.onSaveNewPoll(newPollData);
-  };
 
-  const renderPollAnswerOption = () => {
-
-
-
-    return (
-      <Fragment>
-        <PollCreateAnswerOption
-          onAnswerOptionChange={answerOptionChangeHandler}
-        />
-      </Fragment>
-    );
+    console.log(newPollData.title);
+    console.log(newPollData.description);
+    console.log(newPollData.answerOptions);
   };
 
   return (
@@ -90,6 +97,7 @@ const PollCreate = (props) => {
               type="text"
               placeholder="Ask your question..."
               onChange={titleChangeHandler}
+              ref={enteredTitleRef}
             ></input>
           </div>
         </div>
@@ -100,33 +108,57 @@ const PollCreate = (props) => {
               type="text"
               placeholder="Describe the poll..."
               onChange={descriptionChangeHandler}
+              ref={enteredDescriptionRef}
             ></input>
           </div>
         </div>
         <div className="text-left">
-          <div className="grid grid-cols-1 mb-4 formtext">
+          <div className="grid grid-cols-1 mb-2 formtext">
             <h4 className="mb-2">Answer Options</h4>
             <PollCreateAnswerOption
               onAnswerOptionChange={answerOptionChangeHandler}
+              ref={enteredAnswerRef}
+              onAnswerOptionDelete={deleteAnswerOptionHandler}
             />
-            <input
-              type="text"
-              className="mb-3 formtext"
-              placeholder="Add an answer..."
-              onChange={answerOptionChangeHandler}
-            ></input>
-            <input
-              type="text"
-              className="mb-3"
-              placeholder="Add an answer..."
-            ></input>
-            <input
-              type="text"
-              className="mb-3"
-              placeholder="Add an answer..."
-            ></input>
+            <div className="flex">
+              <input
+                type="text"
+                className="mb-3 formtext w-full"
+                placeholder="Add an answer..."
+                onChange={answerOptionChangeHandler}
+              ></input>
+              <button
+                className="btn-alt-onwhite p-1 h-9"
+                type="button"
+                onClick={deleteAnswerOptionHandler}
+              >
+                X
+              </button>
+            </div>
+            <div className="flex">
+              <input
+                type="text"
+                className="mb-3 formtext w-full"
+                placeholder="Add an answer..."
+                onChange={answerOptionChangeHandler}
+              ></input>
+              <button
+                className="btn-alt-onwhite p-1 h-9"
+                type="button"
+                onClick={deleteAnswerOptionHandler}
+              >
+                X
+              </button>
+            </div>
           </div>
         </div>
+        <button
+          className="btn-primary mb-2"
+          type="button"
+          onClick={addAnswerOptionHandler}
+        >
+          Add Answer
+        </button>
         <div className="text-left">
           <div className="grid grid-cols-1 mb-6">
             <h4 className="mb-2">Options</h4>
@@ -171,7 +203,9 @@ const PollCreate = (props) => {
         <button type="submit" className="btn-primary mx-2">
           Create Poll
         </button>
-        <button className="btn-alt-onwhite mx-2">Advanced Settings</button>
+        <button type="button" className="btn-alt-onwhite mx-2">
+          Advanced Settings
+        </button>
       </form>
     </React.Fragment>
   );
