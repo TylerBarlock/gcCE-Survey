@@ -51,7 +51,7 @@ const PollAnswer = () => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <h2 className="mb-4 text-center">{pollData.title}</h2>
       <p className="mb-4 text-center">{pollData.description}</p>
       <form onSubmit={submitAnswersHandler}>
@@ -75,7 +75,7 @@ const PollAnswer = () => {
           Results
         </button>
       </form>
-    </div>
+    </React.Fragment>
   );
 };
 

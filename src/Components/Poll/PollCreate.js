@@ -51,20 +51,8 @@ const PollCreate = (props) => {
       description: enteredDescription,
       answerOptions: [
         {
-          id: 1,
-          text: "This one?",
-        },
-        {
-          id: 2,
-          text: "Maybe this one.",
-        },
-        {
-          id: 3,
-          text: "Or... Maybe this one?",
-        },
-        {
-          id: 4,
-          text: "Hmmm... How about this?",
+          id: enteredAnswer.id,
+          text: enteredAnswer.text,
         },
       ],
       options: {
@@ -79,7 +67,7 @@ const PollCreate = (props) => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <form onSubmit={onSubmitHandler}>
         <h2 className="mb-4 text-center">Create a Poll</h2>
         <div className="text-left">
@@ -105,7 +93,8 @@ const PollCreate = (props) => {
         <div className="text-left">
           <div className="grid grid-cols-1 mb-4 formtext">
             <h4 className="mb-2">Answer Options</h4>
-            <PollCreateAnswerOption onAnswerOptionChange={answerOptionChangeHandler}
+            <PollCreateAnswerOption
+              onAnswerOptionChange={answerOptionChangeHandler}
             />
             <input
               type="text"
@@ -171,7 +160,7 @@ const PollCreate = (props) => {
         </button>
         <button className="btn-alt-onwhite mx-2">Advanced Settings</button>
       </form>
-    </div>
+    </React.Fragment>
   );
 };
 
