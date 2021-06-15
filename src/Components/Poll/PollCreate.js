@@ -76,10 +76,18 @@ const PollCreate = (props) => {
 
   const addAnswerOptionHandler = () => {
     setValues((state) => [...state, ""]);
+    console.log("add clicked");
   };
 
-  const deleteAnswerOptionHandler = (event) => {
+  const deleteAnswerOptionHandler = (index) => {
     console.log("delete clicked");
+    console.log(values);
+    setValues((state) => [
+      ...state.slice(0, index),
+      ...state.slice(index + 1),
+    ]);
+    console.log(index);
+    console.log(values);
   };
 
   const onSubmitHandler = (event) => {
@@ -112,9 +120,6 @@ const PollCreate = (props) => {
     console.log(values);
 
     //Extract answers from values and put them into the main data object
-    newPollData.answerOptions = values.map((value, index) => {
-
-    });
 
     console.log(newPollData.options);
     console.log(newPollData.answerOptions)
@@ -157,7 +162,7 @@ const PollCreate = (props) => {
                 key={i}
                 id={i}
                 value={value}
-                onChange={(e) => answerOptionChangeHandler(e.target.value, i)}
+                onChange={(event) => answerOptionChangeHandler(event.target.value, i)}
                 onDelete={deleteAnswerOptionHandler}
               />
             ))}
