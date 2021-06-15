@@ -113,7 +113,7 @@ const PollCreate = (props) => {
 
     //Extract answers from values and put them into the main data object
     newPollData.answerOptions = values.map((value, index) => {
-      
+
     });
 
     console.log(newPollData.options);
