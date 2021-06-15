@@ -1,16 +1,4 @@
-import React, { useState, useRef } from "react";
-
-const PollCreateAnswerOption = React.forwardRef((props, ref) => {
-  const [enteredAnswerOption, setEnteredAnswerOption] = useState();
-
-  const answerOptionChangeHandler = (event) => {
-    setEnteredAnswerOption(event.target.value);
-    props.onAnswerOptionChange(event.target.value);
-  };
-
-  const deleteAnswerOptionHandler = (event) => {
-    props.onAnswerOptionDelete(event);
-  };
+const PollCreateAnswerOption = (props) => {
 
   return (
     <div className="flex">
@@ -18,18 +6,18 @@ const PollCreateAnswerOption = React.forwardRef((props, ref) => {
         type="text"
         className="mb-3 formtext w-full"
         placeholder="Add an answer..."
-        onChange={answerOptionChangeHandler}
-        ref={ref}
+        onChange={props.onChange}
+        value={props.value}
       ></input>
       <button
         className="btn-alt-onwhite p-1 h-9"
         type="button"
-        onClick={deleteAnswerOptionHandler}
+        onClick={props.onDelete}
       >
         X
       </button>
     </div>
   );
-});
+};
 
 export default PollCreateAnswerOption;

@@ -1,21 +1,46 @@
 //Main component for poll creation
 
-import React, { Fragment, useState, useRef } from "react";
+import React, {useState, useRef } from "react";
 import PollCreateAnswerOption from "./PollCreateAnswerOption";
 
 const PollCreate = (props) => {
+  let newPollData = {
+    id: "",
+    title: "",
+    description: "",
+    answerOptions: [
+      {
+        id: 0,
+        text: "",
+      },
+      {
+        id: 1,
+        text: "",
+      },
+      {
+        id: 2,
+        text: "",
+      },
+    ],
+    options: {
+      private: false,
+      multiple: false,
+      login: false,
+      ipcheck: false,
+    },
+  };
+
   // const [enteredTitle, setEnteredTitle] = useState("");
   // const [enteredDescription, setEnteredDescription] = useState("");
-  const [enteredAnswer, setEnteredAnswer] = useState("");
+  const [values, setValues] = useState(["", "", ""]);
 
-  const [selectedPrivate, setSelectedPrivate] = useState("");
-  const [selectedMultiple, setSelectedMultiple] = useState("");
-  const [selectedLogin, setSelectedLogin] = useState("");
-  const [selectedIpcheck, setSelectedIpcheck] = useState("");
+  const [selectedPrivate, setSelectedPrivate] = useState(false);
+  const [selectedMultiple, setSelectedMultiple] = useState(false);
+  const [selectedLogin, setSelectedLogin] = useState(false);
+  const [selectedIpcheck, setSelectedIpcheck] = useState(false);
 
   const enteredTitleRef = useRef();
   const enteredDescriptionRef = useRef();
-  const enteredAnswerRef = useRef();
 
   const titleChangeHandler = (event) => {
     //setEnteredTitle(event.target.value);
@@ -25,28 +50,32 @@ const PollCreate = (props) => {
     //setEnteredDescription(event.target.value);
   };
 
-  const answerOptionChangeHandler = (answer) => {
-    //setEnteredAnswer(answer);
+  const answerOptionChangeHandler = (value, index) => {
+    setValues((state) => [
+      ...state.slice(0, index),
+      value,
+      ...state.slice(index + 1),
+    ]);
   };
 
   const privateSelectedHandler = (event) => {
-    setSelectedPrivate(event.target.value);
+    setSelectedPrivate(event.target.checked);
   };
 
   const multipleSelectedHandler = (event) => {
-    setSelectedMultiple(event.target.value);
+    setSelectedMultiple(event.target.checked);
   };
 
   const loginSelectedHandler = (event) => {
-    setSelectedLogin(event.target.value);
+    setSelectedLogin(event.target.checked);
   };
 
   const ipcheckSelectedHandler = (event) => {
-    setSelectedIpcheck(event.target.value);
+    setSelectedIpcheck(event.target.checked);
   };
 
-  const addAnswerOptionHandler = (event) => {
-    console.log("add answer clicked");
+  const addAnswerOptionHandler = () => {
+    setValues((state) => [...state, ""]);
   };
 
   const deleteAnswerOptionHandler = (event) => {
@@ -59,16 +88,16 @@ const PollCreate = (props) => {
 
     const enteredTitle = enteredTitleRef.current.value;
     const enteredDescription = enteredDescriptionRef.current.value;
-    //const enteredAnswer = enteredAnswerRef.current.value;
 
     //object to hold all data about the new poll being created
-    const newPollData = {
+    newPollData = {
+      id: Math.random(),
       title: enteredTitle,
       description: enteredDescription,
       answerOptions: [
         {
-          id: enteredAnswer.id,
-          text: enteredAnswer.text,
+          id: Number,
+          text: String,
         },
       ],
       options: {
@@ -78,12 +107,20 @@ const PollCreate = (props) => {
         ipcheck: selectedIpcheck,
       },
     };
-    //send the new poll data up to the Poll component
-    props.onSaveNewPoll(newPollData);
-
     console.log(newPollData.title);
     console.log(newPollData.description);
-    console.log(newPollData.answerOptions);
+    console.log(values);
+
+    //Extract answers from values and put them into the main data object
+    newPollData.answerOptions = values.map((value, index) => {
+      
+    });
+
+    console.log(newPollData.options);
+    console.log(newPollData.answerOptions)
+
+    //send the new poll data up to the Poll component
+    props.onSaveNewPoll(newPollData);
   };
 
   return (
@@ -115,41 +152,15 @@ const PollCreate = (props) => {
         <div className="text-left">
           <div className="grid grid-cols-1 mb-2 formtext">
             <h4 className="mb-2">Answer Options</h4>
-            <PollCreateAnswerOption
-              onAnswerOptionChange={answerOptionChangeHandler}
-              ref={enteredAnswerRef}
-              onAnswerOptionDelete={deleteAnswerOptionHandler}
-            />
-            <div className="flex">
-              <input
-                type="text"
-                className="mb-3 formtext w-full"
-                placeholder="Add an answer..."
-                onChange={answerOptionChangeHandler}
-              ></input>
-              <button
-                className="btn-alt-onwhite p-1 h-9"
-                type="button"
-                onClick={deleteAnswerOptionHandler}
-              >
-                X
-              </button>
-            </div>
-            <div className="flex">
-              <input
-                type="text"
-                className="mb-3 formtext w-full"
-                placeholder="Add an answer..."
-                onChange={answerOptionChangeHandler}
-              ></input>
-              <button
-                className="btn-alt-onwhite p-1 h-9"
-                type="button"
-                onClick={deleteAnswerOptionHandler}
-              >
-                X
-              </button>
-            </div>
+            {values.map((value, i) => (
+              <PollCreateAnswerOption
+                key={i}
+                id={i}
+                value={value}
+                onChange={(e) => answerOptionChangeHandler(e.target.value, i)}
+                onDelete={deleteAnswerOptionHandler}
+              />
+            ))}
           </div>
         </div>
         <button
