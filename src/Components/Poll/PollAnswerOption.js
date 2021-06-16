@@ -14,7 +14,6 @@ const PollAnswerOption = (props) => {
     inputType = "radio";
   }
 
-
   return (
     <div className="flex items-center">
       <input

@@ -1,6 +1,7 @@
 const PollCreateAnswerOption = (props) => {
-
+  //triggers when the delete button is clicked
   const deleteClickedHandler = () => {
+    //trigger the onDelete function passed down from the parent component with the index of the answer item as a parameter. //onDelete then triggers deleteAnswerOptionHandler in the parent component and passes the index through it as well.
     props.onDelete(props.id);
   };
 

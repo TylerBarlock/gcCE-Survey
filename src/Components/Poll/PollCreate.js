@@ -1,35 +1,11 @@
 //Main component for poll creation
 
-import React, {useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import PollCreateAnswerOption from "./PollCreateAnswerOption";
 
 const PollCreate = (props) => {
-  let newPollData = {
-    id: "",
-    title: "",
-    description: "",
-    answerOptions: [
-      {
-        id: 0,
-        text: "",
-      },
-      {
-        id: 1,
-        text: "",
-      },
-      {
-        id: 2,
-        text: "",
-      },
-    ],
-    options: {
-      private: false,
-      multiple: false,
-      login: false,
-      ipcheck: false,
-    },
-  };
 
+  //setting up state hooks for all of the inputs on the form
   // const [enteredTitle, setEnteredTitle] = useState("");
   // const [enteredDescription, setEnteredDescription] = useState("");
   const [values, setValues] = useState(["", "", ""]);
@@ -39,75 +15,88 @@ const PollCreate = (props) => {
   const [selectedLogin, setSelectedLogin] = useState(false);
   const [selectedIpcheck, setSelectedIpcheck] = useState(false);
 
+  //setting up ref hooks for Title and Description
   const enteredTitleRef = useRef();
   const enteredDescriptionRef = useRef();
 
   const titleChangeHandler = (event) => {
+    //leaving this here for now in-case we decide we need on-keystroke validation for the title later. Currently we are using a ref instead of state.
     //setEnteredTitle(event.target.value);
   };
 
   const descriptionChangeHandler = (event) => {
+    //leaving this here for now in-case we decide we need on-keystroke validation for the description later. Currently we are using a ref instead of state.
     //setEnteredDescription(event.target.value);
   };
 
   const answerOptionChangeHandler = (value, index) => {
+    //add the new value at the appropriate index to an array and update the state with that array
     setValues((state) => [
+      //spread values from index 0 to current index-1
       ...state.slice(0, index),
+      //insert current new value
       value,
+      //spread values from current index+1
       ...state.slice(index + 1),
     ]);
   };
 
+  //triggers when the private checkbox is toggled
   const privateSelectedHandler = (event) => {
+    //update the state of selectedPrivate with the current boolean value of the checkbox
     setSelectedPrivate(event.target.checked);
   };
 
+  //triggers when the multi select checkbox is toggled
   const multipleSelectedHandler = (event) => {
+    //update the state of selectedMultiple with the current boolean value of the checkbox
     setSelectedMultiple(event.target.checked);
   };
 
+  //triggers when the login required checkbox is toggled
   const loginSelectedHandler = (event) => {
+    //update the state of selectedLogin with the current boolean value of the checkbox
     setSelectedLogin(event.target.checked);
   };
 
+  //triggers when the ip verification checkbox is toggled
   const ipcheckSelectedHandler = (event) => {
+    //update the state of selectedIpcheck with the current boolean value of the checkbox
     setSelectedIpcheck(event.target.checked);
   };
 
   const addAnswerOptionHandler = () => {
+    //create an array of all existing values and add a blank string at the end
+    //spread the existing items and add a blank string
     setValues((state) => [...state, ""]);
-    console.log("add clicked");
   };
 
   const deleteAnswerOptionHandler = (index) => {
-    console.log("delete clicked");
-    console.log(values);
+    //create an array of all values before and after the index selected for deletion (basically just leaving out the one value that we wanted to remove) then update the state with that array
     setValues((state) => [
+      //spread the items before the selected index
       ...state.slice(0, index),
+      //spread the items after the selected index
       ...state.slice(index + 1),
     ]);
-    console.log(index);
-    console.log(values);
   };
 
+  //triggers when the submit button is clicked
   const onSubmitHandler = (event) => {
     //cancel default form submit behavior (reloads page)
     event.preventDefault();
 
+    //set enteredTitle and enteredDescription to the values of their referenced DOM pointers
     const enteredTitle = enteredTitleRef.current.value;
     const enteredDescription = enteredDescriptionRef.current.value;
 
     //object to hold all data about the new poll being created
-    newPollData = {
-      id: Math.random(),
+    const newPollData = {
+      //in the future i want to check the db for the last created poll id and add 1 or something like that, but for now Math.random is fine
+      id: Math.round(Math.random() * 1000),
       title: enteredTitle,
       description: enteredDescription,
-      answerOptions: [
-        {
-          id: Number,
-          text: String,
-        },
-      ],
+      answerOptions: [],
       options: {
         private: selectedPrivate,
         multiple: selectedMultiple,
@@ -115,16 +104,15 @@ const PollCreate = (props) => {
         ipcheck: selectedIpcheck,
       },
     };
-    console.log(newPollData.title);
-    console.log(newPollData.description);
-    console.log(values);
 
-    //Extract answers from values and put them into the main data object
+    //Extract answers from values and put them into the main data object. Convert the array index to id and value to text.
+    for (let i = 0; i < values.length; i++) {
+      let newId = i;
+      let newText = values[i];
+      newPollData.answerOptions.push({ id: newId, text: newText });
+    }
 
-    console.log(newPollData.options);
-    console.log(newPollData.answerOptions)
-
-    //send the new poll data up to the Poll component
+    //passing the new poll data into a function from the parent Poll component to "lift" the values up to the parent component.
     props.onSaveNewPoll(newPollData);
   };
 
@@ -146,12 +134,13 @@ const PollCreate = (props) => {
         <div className="text-left">
           <div className="grid grid-cols-1 mb-4">
             <h4 className="mb-2">Description (optional)</h4>
-            <input
+            <textarea
               type="text"
+              rows="3"
               placeholder="Describe the poll..."
               onChange={descriptionChangeHandler}
               ref={enteredDescriptionRef}
-            ></input>
+            ></textarea>
           </div>
         </div>
         <div className="text-left">
@@ -162,7 +151,9 @@ const PollCreate = (props) => {
                 key={i}
                 id={i}
                 value={value}
-                onChange={(event) => answerOptionChangeHandler(event.target.value, i)}
+                onChange={(event) =>
+                  answerOptionChangeHandler(event.target.value, i)
+                }
                 onDelete={deleteAnswerOptionHandler}
               />
             ))}

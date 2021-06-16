@@ -27,6 +27,9 @@
   input[type=checkbox] {
     @apply border-primary-300 bg-primary-50;
   }
+  textarea {
+    @apply transition rounded-md focus:bg-primary-50 border-2 border-primary-300 outline-none focus:shadow-inner p-1;
+  }
 }
 
 @layer components {
