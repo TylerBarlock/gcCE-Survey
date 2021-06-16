@@ -4,9 +4,8 @@ import PollCreate from "./PollCreate";
 import PollResults from "./PollResults";
 
 const Poll = () => {
-
   //Dummy data for testing
-  let pollData = {
+  let tempPollData = {
     title: "This is a poll.",
     description:
       "this is some very interesting information about this super cool and unique poll that we'd like you to fill out.",
@@ -70,9 +69,11 @@ const Poll = () => {
     },
   ]
 
+  const [pollData, setPollData] = useState(tempPollData);
+
   const saveNewPollHandler = (newPollData) => {
-    pollData = newPollData;
-    console.log(pollData);
+    setPollData(newPollData);
+    console.log(newPollData);
   };
 
   const [createStatus, setCreateStatus] = useState(false);
