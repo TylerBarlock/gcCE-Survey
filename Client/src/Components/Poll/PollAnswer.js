@@ -7,9 +7,7 @@ const PollAnswer = (props) => {
   let isMultiple = props.pollData.options.multiple;
 
   //create state hook to track the currently selected answer(s)
-  const [checkedAnswers, setcheckedAnswers] = useState([]);
-
-  let pollVotes = [];
+  const [checkedAnswers, setCheckedAnswers] = useState([]);
 
   const submitAnswersHandler = (event) => {
     //stop the form from reloading (default behavior)
@@ -23,57 +21,25 @@ const PollAnswer = (props) => {
   const answerChangeHandler = (selectedAnswer) => {
     selectedAnswer = Number(selectedAnswer);
     let pastAnswers = checkedAnswers;
+    //check if multiple selections is turned on
     if (isMultiple === true) {
+      //check if the selected checkbox has already been selected before then remove it if so, and add it if not
       if (pastAnswers.includes(selectedAnswer) === true) {
-        console.log(pastAnswers + " contains " + selectedAnswer);
-        console.log("Removing " + selectedAnswer);
         const index = pastAnswers.indexOf(selectedAnswer);
-        pastAnswers.splice(index, 1);
-        setcheckedAnswers(pastAnswers);
+        setCheckedAnswers((state) => [
+          //spread the items before the selected index
+          ...state.slice(0, index),
+          //spread the items after the selected index
+          ...state.slice(index + 1),
+        ]);
       } else {
-        console.log(pastAnswers + " does NOT contain " + selectedAnswer);
-        console.log("Adding " + selectedAnswer);
-        pastAnswers = [...pastAnswers, Number(selectedAnswer)];
-        setcheckedAnswers(pastAnswers);
+        pastAnswers = [...pastAnswers, selectedAnswer];
+        setCheckedAnswers(pastAnswers);
       }
+    //if multiple is off, just set the value instead of adding to an array
     } else {
-      setcheckedAnswers([selectedAnswer]);
+      setCheckedAnswers([selectedAnswer]);
     }
-  };
-
-  const isCheckedHandler = (optionId, checkedValues) => {
-    //console.log("oid " + optionId);
-    //console.log("val " + checkedValues);
-
-    let isChecked;
-
-    if (isMultiple === true) {
-      console.log(optionId);
-      console.log(checkedValues);
-      for (let i = 0; i < checkedValues.length; i++) {
-        console.log(checkedValues[i] + " " + optionId);
-        if (Number(checkedValues[i]) === optionId) {
-          console.log(
-            checkedValues[i] +
-              " === " +
-              optionId +
-              ". Setting isChecked to true."
-          );
-          isChecked = true;
-        } else {
-          console.log(
-            checkedValues[i] +
-              " =/= " +
-              optionId +
-              ". Setting isChecked to false."
-          );
-          isChecked = false;
-        }
-      }
-    } else {
-      isChecked = Number(checkedValues) === optionId;
-    }
-    return isChecked;
   };
 
   return (
@@ -90,7 +56,8 @@ const PollAnswer = (props) => {
               text={option.text}
               isMultiple={isMultiple}
               onAnswerChanged={answerChangeHandler}
-              isChecked={checkedAnswers.includes(option.id) ? true : false/*isCheckedHandler(option.id, checkedAnswers)*/}
+              //if the option id matches a value in the array of selected answers, return true. else, return false
+              isChecked={checkedAnswers.includes(option.id) ? true : false}
             />
           ))}
         </div>
