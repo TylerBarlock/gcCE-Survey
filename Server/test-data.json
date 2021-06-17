@@ -1,0 +1,6 @@
+{
+    "_id": 2,
+    "title": "Do you want to play Among Us on Friday",
+    "desc": "A test survey made by Christian Wirt.",
+    "options": ["Yes", "No", "Maybe"]
+}
