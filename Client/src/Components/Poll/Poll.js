@@ -29,7 +29,7 @@ const Poll = () => {
     ],
     options: {
       private: false,
-      multiple: false,
+      multiple: true,
       login: false,
       ipcheck: false,
     },
