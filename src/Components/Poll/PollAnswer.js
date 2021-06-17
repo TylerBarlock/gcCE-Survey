@@ -23,7 +23,7 @@ const PollAnswer = (props) => {
   const answerChangeHandler = (selectedAnswer, id) => {
     let pastAnswers = checkedAnswer;
     if (isMultiple === true){
-      pastAnswers = [...pastAnswers, selectedAnswer];
+      pastAnswers = [...pastAnswers, Number(selectedAnswer)];
       setCheckedAnswer(pastAnswers);
     }
     else {
@@ -38,9 +38,12 @@ const PollAnswer = (props) => {
     let isChecked;
 
     if (isMultiple === true){
-      for (let i = 0; i <= checkedValues.length; i++){
+      console.log(optionId);
+      console.log(checkedValues);
+      for (let i = 0; i < checkedValues.length; i++){
+        console.log(checkedValues[i] + " " + optionId)
         if (Number(checkedValues[i]) === optionId){
-          console.log(checkedValues[i] + " selected. Setting isChecked to true.");
+          console.log(checkedValues[i] + " === " + optionId + ". Setting isChecked to true.");
           isChecked = true;
         }
         else {

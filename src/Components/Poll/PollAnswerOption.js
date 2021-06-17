@@ -12,7 +12,7 @@ const PollAnswerOption = (props) => {
 
   let inputType;
 
-  //Setting to checkboxes works, but they still can only select one and it only reports one value
+  //Setting to checkboxes works, but it doesn't set the right selected value yet
   if (props.isMultiple === true) {
     inputType = "checkbox";
   } else {
