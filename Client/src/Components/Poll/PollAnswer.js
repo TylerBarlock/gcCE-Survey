@@ -1,15 +1,13 @@
 //Main component for answering a poll
 
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import PollAnswerOption from "./PollAnswerOption";
 
 const PollAnswer = (props) => {
   let isMultiple = props.pollData.options.multiple;
 
   //create state hook to track the currently selected answer(s)
-  const [checkedAnswer, setCheckedAnswer] = useState([]);
-
-  const answerOptionRef = useRef();
+  const [checkedAnswers, setcheckedAnswers] = useState([]);
 
   let pollVotes = [];
 
@@ -17,29 +15,29 @@ const PollAnswer = (props) => {
     //stop the form from reloading (default behavior)
     event.preventDefault();
 
-    console.log(checkedAnswer);
+    console.log(checkedAnswers);
 
-    //checkedAnswer is the value the user selected and is received upon the user submitting. this will be added to the tally. Will need to look into a way to check the user's username and maybe IP in the future
+    //checkedAnswers is the value the user selected and is received upon the user submitting. this will be added to the tally. Will need to look into a way to check the user's username and maybe IP in the future
   };
 
   const answerChangeHandler = (selectedAnswer) => {
     selectedAnswer = Number(selectedAnswer);
-    let pastAnswers = checkedAnswer;
+    let pastAnswers = checkedAnswers;
     if (isMultiple === true) {
       if (pastAnswers.includes(selectedAnswer) === true) {
         console.log(pastAnswers + " contains " + selectedAnswer);
         console.log("Removing " + selectedAnswer);
         const index = pastAnswers.indexOf(selectedAnswer);
         pastAnswers.splice(index, 1);
-        setCheckedAnswer(pastAnswers);
+        setcheckedAnswers(pastAnswers);
       } else {
         console.log(pastAnswers + " does NOT contain " + selectedAnswer);
         console.log("Adding " + selectedAnswer);
         pastAnswers = [...pastAnswers, Number(selectedAnswer)];
-        setCheckedAnswer(pastAnswers);
+        setcheckedAnswers(pastAnswers);
       }
     } else {
-      setCheckedAnswer([selectedAnswer]);
+      setcheckedAnswers([selectedAnswer]);
     }
   };
 
@@ -92,8 +90,7 @@ const PollAnswer = (props) => {
               text={option.text}
               isMultiple={isMultiple}
               onAnswerChanged={answerChangeHandler}
-              isChecked={checkedAnswer.includes(option.id) ? true : false/*isCheckedHandler(option.id, checkedAnswer)*/}
-              ref={answerOptionRef}
+              isChecked={checkedAnswers.includes(option.id) ? true : false/*isCheckedHandler(option.id, checkedAnswers)*/}
             />
           ))}
         </div>
