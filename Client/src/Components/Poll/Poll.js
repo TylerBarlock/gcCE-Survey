@@ -40,32 +40,38 @@ const Poll = () => {
     {
       id: 1,
       vote: [1],
-      ip: "56.170.138.93"
+      ip: "56.170.138.93",
+      username: "Something"
     },
     {
       id: 2,
       vote: [2],
-      ip: "66.48.231.142"
+      ip: "66.48.231.142",
+      username: "Something else"
     },
     {
       id: 3,
       vote: [2],
-      ip: "100.193.215.142"
+      ip: "100.193.215.142",
+      username: "Another thing"
     },
     {
       id: 4,
       vote: [3],
-      ip: "235.184.145.207"
+      ip: "235.184.145.207",
+      username: "Another"
     },
     {
       id: 5,
       vote: [2],
-      ip: "235.184.145.207"
+      ip: "235.184.145.207",
+      username: "Wow a name"
     },
     {
       id: 6,
       vote: [3],
-      ip: "235.184.145.207"
+      ip: "235.184.145.207",
+      username: "Wow another name"
     },
   ]
 
@@ -121,8 +127,8 @@ const Poll = () => {
           <PollAnswer pollData={pollData} />
         </div>
       )}
-      <div className="card-white col-span-2 w-1/2 text-center">
-          <PollResults pollResponses={pollResponses} />
+      <div className="card-white col-span-2 w-full text-center">
+          <PollResults pollResponses={pollResponses} pollData={pollData} />
         </div>
     </div>
   );
