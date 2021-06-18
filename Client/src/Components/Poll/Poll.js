@@ -41,39 +41,39 @@ const Poll = () => {
       id: 1,
       vote: [1],
       ip: "56.170.138.93",
-      username: "Something"
+      username: "Something",
     },
     {
       id: 2,
       vote: [2],
       ip: "66.48.231.142",
-      username: "Something else"
+      username: "Something else",
     },
     {
       id: 3,
       vote: [2],
       ip: "100.193.215.142",
-      username: "Another thing"
+      username: "Another thing",
     },
     {
       id: 4,
       vote: [3],
       ip: "235.184.145.207",
-      username: "Another"
+      username: "Another",
     },
     {
       id: 5,
       vote: [2],
       ip: "235.184.145.207",
-      username: "Wow a name"
+      username: "Wow a name",
     },
     {
       id: 6,
       vote: [3],
       ip: "235.184.145.207",
-      username: "Wow another name"
+      username: "Wow another name",
     },
-  ]
+  ];
 
   const [pollData, setPollData] = useState(tempPollData);
 
@@ -84,17 +84,24 @@ const Poll = () => {
 
   const [createStatus, setCreateStatus] = useState(false);
   const [answerStatus, setAnswerStatus] = useState(false);
+  const [resultsStatus, setResultsStatus] = useState(false);
 
   const createClickHandler = () => {
     setCreateStatus(true);
     setAnswerStatus(false);
-
+    setResultsStatus(false);
   };
 
   const answerClickHandler = () => {
     setCreateStatus(false);
     setAnswerStatus(true);
+    setResultsStatus(false);
+  };
 
+  const resultsClickHandler = () => {
+    setCreateStatus(false);
+    setAnswerStatus(false);
+    setResultsStatus(true);
   };
 
   return (
@@ -102,7 +109,9 @@ const Poll = () => {
       <div className="card-white grid-cols-1 text-center">
         <h1 className="mb-4">Create a Poll</h1>
         <p className="mb-4">
-          Click the button below to create your own poll! Click the button below to create your own poll! Click the button below to create your own poll! Click the button below to create your own poll!
+          Click the button below to create your own poll! Click the button below
+          to create your own poll! Click the button below to create your own
+          poll! Click the button below to create your own poll!
         </p>
         <button className="btn-primary" onClick={createClickHandler}>
           Create a Poll
@@ -111,7 +120,9 @@ const Poll = () => {
       <div className="card-alt grid-cols-1 text-center">
         <h2 className="mb-4">Answer a Poll</h2>
         <p className="mb-4">
-        Click the button below to respond to a poll! Click the button below to respond to a poll! Click the button below to respond to a poll! Click the button below to respond to a poll!
+          Click the button below to respond to a poll! Click the button below to
+          respond to a poll! Click the button below to respond to a poll! Click
+          the button below to respond to a poll!
         </p>
         <button className="btn-alt" onClick={answerClickHandler}>
           Answer a Poll
@@ -124,12 +135,17 @@ const Poll = () => {
       )}
       {answerStatus && (
         <div className="card-white col-span-2 w-1/2 text-center">
-          <PollAnswer pollData={pollData} />
+          <PollAnswer
+            pollData={pollData}
+            resultsClickHandler={resultsClickHandler}
+          />
         </div>
       )}
-      <div className="card-white col-span-2 w-full text-center">
+      {resultsStatus && (
+        <div className="card-white col-span-2 w-full text-center">
           <PollResults pollResponses={pollResponses} pollData={pollData} />
         </div>
+      )}
     </div>
   );
 };

@@ -71,7 +71,7 @@ const PollAnswer = (props) => {
         <button type="submit" className="btn-primary mx-2">
           Vote
         </button>
-        <button className="btn-alt-onwhite mx-2" type="button">
+        <button className="btn-alt-onwhite mx-2" type="button" onClick={props.resultsClickHandler}>
           Results
         </button>
       </form>
