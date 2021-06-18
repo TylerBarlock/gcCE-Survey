@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import PollAnswerOption from "./PollAnswerOption";
 
 const PollAnswer = (props) => {
+
   let isMultiple = props.pollData.options.multiple;
 
   //create state hook to track the currently selected answer(s)
@@ -13,7 +14,13 @@ const PollAnswer = (props) => {
     //stop the form from reloading (default behavior)
     event.preventDefault();
 
-    console.log(checkedAnswers);
+    const voteData = {
+      votes: [...checkedAnswers],
+      ip: Math.random(),
+      username: Math.random(),
+    }
+
+    console.log(voteData);
 
     //checkedAnswers is the value the user selected and is received upon the user submitting. this will be added to the tally. Will need to look into a way to check the user's username and maybe IP in the future
   };
@@ -34,7 +41,7 @@ const PollAnswer = (props) => {
         ]);
       } else {
         pastAnswers = [...pastAnswers, selectedAnswer];
-        setCheckedAnswers(pastAnswers);
+        setCheckedAnswers((state) => [...state, selectedAnswer]);
       }
     //if multiple is off, just set the value instead of adding to an array
     } else {
