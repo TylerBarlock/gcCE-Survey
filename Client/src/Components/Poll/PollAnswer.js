@@ -4,58 +4,50 @@ import React, { useState } from "react";
 import PollAnswerOption from "./PollAnswerOption";
 
 const PollAnswer = (props) => {
+
   let isMultiple = props.pollData.options.multiple;
 
   //create state hook to track the currently selected answer(s)
-  const [checkedAnswer, setCheckedAnswer] = useState([0]);
-
-  let pollVotes = [];
+  const [checkedAnswers, setCheckedAnswers] = useState([]);
 
   const submitAnswersHandler = (event) => {
     //stop the form from reloading (default behavior)
     event.preventDefault();
 
-    console.log(checkedAnswer);
+    const voteData = {
+      votes: [...checkedAnswers],
+      ip: Math.random(),
+      username: Math.random(),
+    }
 
-    //checkedAnswer is the value the user selected and is received upon the user submitting. this will be added to the tally. Will need to look into a way to check the user's username and maybe IP in the future
+    console.log(voteData);
+
+    //checkedAnswers is the value the user selected and is received upon the user submitting. this will be added to the tally. Will need to look into a way to check the user's username and maybe IP in the future
   };
 
-  const answerChangeHandler = (selectedAnswer, id) => {
-    let pastAnswers = checkedAnswer;
-    if (isMultiple === true){
-      pastAnswers = [...pastAnswers, Number(selectedAnswer)];
-      setCheckedAnswer(pastAnswers);
-    }
-    else {
-      setCheckedAnswer(selectedAnswer);
-    }
-  };
-
-  const isCheckedHandler = (optionId, checkedValues) => {
-    //console.log("oid " + optionId);
-    //console.log("val " + checkedValues);
-
-    let isChecked;
-
-    if (isMultiple === true){
-      console.log(optionId);
-      console.log(checkedValues);
-      for (let i = 0; i < checkedValues.length; i++){
-        console.log(checkedValues[i] + " " + optionId)
-        if (Number(checkedValues[i]) === optionId){
-          console.log(checkedValues[i] + " === " + optionId + ". Setting isChecked to true.");
-          isChecked = true;
-        }
-        else {
-          isChecked = false;
-        }
+  const answerChangeHandler = (selectedAnswer) => {
+    selectedAnswer = Number(selectedAnswer);
+    let pastAnswers = checkedAnswers;
+    //check if multiple selections is turned on
+    if (isMultiple === true) {
+      //check if the selected checkbox has already been selected before then remove it if so, and add it if not
+      if (pastAnswers.includes(selectedAnswer) === true) {
+        const index = pastAnswers.indexOf(selectedAnswer);
+        setCheckedAnswers((state) => [
+          //spread the items before the selected index
+          ...state.slice(0, index),
+          //spread the items after the selected index
+          ...state.slice(index + 1),
+        ]);
+      } else {
+        pastAnswers = [...pastAnswers, selectedAnswer];
+        setCheckedAnswers((state) => [...state, selectedAnswer]);
       }
+    //if multiple is off, just set the value instead of adding to an array
+    } else {
+      setCheckedAnswers([selectedAnswer]);
     }
-    else {
-      isChecked = Number(checkedValues) === optionId;
-    }
-    return isChecked;
-  }
+  };
 
   return (
     <React.Fragment>
@@ -70,15 +62,16 @@ const PollAnswer = (props) => {
               id={option.id}
               text={option.text}
               isMultiple={isMultiple}
-              isChecked={isCheckedHandler(option.id, checkedAnswer)}
               onAnswerChanged={answerChangeHandler}
+              //if the option id matches a value in the array of selected answers, return true. else, return false
+              isChecked={checkedAnswers.includes(option.id) ? true : false}
             />
           ))}
         </div>
         <button type="submit" className="btn-primary mx-2">
           Vote
         </button>
-        <button className="btn-alt-onwhite mx-2" type="button">
+        <button className="btn-alt-onwhite mx-2" type="button" onClick={props.resultsClickHandler}>
           Results
         </button>
       </form>

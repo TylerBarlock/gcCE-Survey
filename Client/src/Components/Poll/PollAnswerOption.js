@@ -1,10 +1,8 @@
+import React from "react";
+
 //Component for individual answer option items (radio buttons/checkboxes)
 
-import React, {useRef} from "react";
-
 const PollAnswerOption = (props) => {
-
-  const isSelectedRef = useRef();
 
   const radioSelectedHandler = (event) => {
     props.onAnswerChanged(event.target.value);
@@ -28,7 +26,6 @@ const PollAnswerOption = (props) => {
         className="mx-4"
         checked={props.isChecked}
         onChange={radioSelectedHandler}
-        ref={isSelectedRef}
       ></input>
       <label>{props.text}</label>
     </div>
