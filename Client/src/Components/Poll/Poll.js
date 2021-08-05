@@ -130,7 +130,7 @@ const Poll = () => {
       </div>
       {createStatus && (
         <div className="card-white col-span-2 w-1/2 text-center">
-          <PollCreate onSaveNewPoll={saveNewPollHandler} />
+          <PollCreate onSaveNewPoll={saveNewPollHandler} onCreated={answerClickHandler}/>
         </div>
       )}
       {answerStatus && (

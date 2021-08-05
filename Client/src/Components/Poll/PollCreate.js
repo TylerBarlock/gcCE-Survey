@@ -114,6 +114,8 @@ const PollCreate = (props) => {
 
     //passing the new poll data into a function from the parent Poll component to "lift" the values up to the parent component.
     props.onSaveNewPoll(newPollData);
+    //triggering the answerClickedHandler to open the answer page
+    props.onCreated();
   };
 
   return (
